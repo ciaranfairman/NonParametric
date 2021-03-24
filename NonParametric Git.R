@@ -13,7 +13,7 @@ library("pastecs")
 library("WRS2")
 library(car)
 library(tidyverse)
-
+library(gt)
 getwd()
 setwd("~/Dropbox/DataSet/Section2")
 
@@ -188,4 +188,31 @@ Summary %>% tbl_summary()
 Summary %>% tbl_summary(by = drug,
                         statistic = list(all_continuous() ~ "{mean} ({sd})",
                                          all_categorical() ~ "{n} / {N} ({p}%)"),
-                        label = sundayBDI ~ "Depression on Sunday") 
+                        label = list(sundayBDI ~ "Depression on Sunday", wedsBDI ~ "Depression on Wednesday"),)
+
+
+Summary %>%
+  tbl_summary(
+    by = drug,
+    type = all_continuous() ~ "continuous2",
+    statistic = all_continuous() ~ c("{N_nonmiss}",
+                                     "{mean} ({sd})", 
+                                     "{median} ({p25}, {p75})", 
+                                     "{min}, {max}"),
+    missing = "no",
+    label = list(sundayBDI ~"Depression on Sunday", wedsBDI ~ "Depression on Wednesday"),
+  ) %>%
+  italicize_levels()
+
+
+
+#Running Paired T Test as table
+
+#Get Data
+AlcholBDI %>%
+  select(AlcholBDI, )
+
+
+
+
+                        
